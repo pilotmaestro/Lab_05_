@@ -1,15 +1,12 @@
 #include<iostream>
 #include<chrono>
 #include<cmath>
+#include<memory>
 
 namespace cc {
     const int len_val {14}; // байт для числа
     const std::string chars_value("+0123456789"); // value
 }
-
-namespace l5 {
-}
-
 
 struct Matrix {
     size_t size;
@@ -126,8 +123,9 @@ void Matrix::reduce() {
 
 void Matrix::out() {
 
-    size_t maxPlaces[size];
-    for(size_t i = 0; i < size; i++) maxPlaces[i] = 0;
+    std::unique_ptr<size_t> maxPlaces(new size_t [size]);
+
+    for(size_t i = 0; i < size; i++) *(maxPlaces + i) = 0;
 
 
     for(size_t j = 0; j < size; j++) {
